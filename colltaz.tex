@@ -1,0 +1,234 @@
+\documentclass[a4paper, hidelinks, twocolumn, 9pt]{article}
+      \usepackage[a4paper, right=20mm, left=20mm, top=20mm, bottom=20mm]{geometry}  % Changing headers and footers.
+  % Enables the use of colour.
+  \usepackage{xcolor}
+  % Syntax high-lighting for code. Requires Python's pygments.
+  \usepackage{minted}
+  % Enables the use of umlauts and other accents.
+  \usepackage[utf8]{inputenc}
+  % Diagrams.
+  \usepackage{tikz}
+  % Settings for captions, such as sideways captions.
+  \usepackage{caption}
+  % Symbols for units, like degrees and ohms.
+  \usepackage{gensymb}
+  % Latin modern fonts - better looking than the defaults.
+  \usepackage{lmodern}
+  % Allows for columns spanning multiple rows in tables.
+  \usepackage{multirow}
+  % Better looking tables, including nicer borders.
+  \usepackage{booktabs}
+  % More math symbols.
+  \usepackage{amssymb}
+  % More math fonts, like \mathbb.
+  \usepackage{amsfonts}
+  % More math layouts, equation arrays, etc.
+  \usepackage{amsmath}
+  % More theorem environments.
+  \usepackage{amsthm}
+  % More column formats for tables. 
+  \usepackage{array}
+  % Adjust the sizes of box environments.
+  \usepackage{adjustbox}
+  % Better looking single quotes in verbatim and minted environments.
+  \usepackage{upquote}
+  % Better blank space decisions.
+  \usepackage{xspace}
+  % Better looking tikz trees.
+  \usepackage{forest}
+  % URLs.
+  \usepackage{hyperref}
+  % Plotting.
+  \usepackage{pgfplots}
+  % Page styling.
+
+  \usepackage{fancyhdr}
+  % Calculates the number of pages.
+  \usepackage{lastpage}
+  % Styling the abstract.
+  \usepackage{abstract}
+
+  % Titling
+  \usepackage{titling}
+  
+  % Various tikz libraries.
+  % For drawing mind maps.
+  \usetikzlibrary{mindmap}
+  % For adding shadows.
+  \usetikzlibrary{shadows}
+  % Extra arrows tips.
+  \usetikzlibrary{arrows.meta}
+  % Old arrows.
+  \usetikzlibrary{arrows}
+  % Automata.
+  \usetikzlibrary{automata}
+  % For more positioning options.
+  \usetikzlibrary{positioning}
+  % Creating chains of nodes on a line.
+  \usetikzlibrary{chains}
+  % Fitting node to contain set of coordinates.
+  \usetikzlibrary{fit}
+  % Extra shapes for drawing.
+  \usetikzlibrary{shapes}
+  % For markings on paths.
+  \usetikzlibrary{decorations.markings}
+  % For advanced calculations.
+  \usetikzlibrary{calc}
+  
+  % GMIT colours.
+  \definecolor{gmitblue}{RGB}{20,134,225}
+  \definecolor{gmitred}{RGB}{220,20,60}
+  \definecolor{gmitgrey}{RGB}{67,67,67}
+
+  %%%%%% CHANGE
+  % Name of the topic.
+  \newcommand{\topicname}{Collatz Turing Machine}
+  \newcommand{\blm}{\sqcup}
+  \newcommand{\bl}{\(\blm\)}
+  
+  %%%%%%
+
+  % Abstract
+  \renewcommand{\abstractname}{}
+  \renewcommand{\absnamepos}{empty}
+
+  % Environments
+  \newtheorem*{remark}{Remark}
+  \newtheorem*{definition}{Definition}
+
+  % Tables
+  \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+  % Bibliography
+  \renewcommand{\refname}{\selectfont\normalsize References} 
+
+  \title{\topicname}
+  \author{}
+  \date{}
+
+  \pgfplotsset{compat=1.16}
+  
+  \pagestyle{fancy}
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \rhead{\url{ian.mcloughlin@gmit.ie}}
+  
+  \lhead{\today}
+ 
+\setlength{\droptitle}{-40pt}
+ %%begin novalidate
+\posttitle{\par\end{center}\vspace{-50pt}}
+ %%end novalidate
+\setlength{\columnsep}{20mm}
+\setlength{\columnseprule}{0.1mm}
+
+\setlength{\parindent}{0pt} 
+ 
+\begin{document}
+  
+  \maketitle
+  \thispagestyle{fancy}
+
+  \begin{align*}
+      A &= \{ 0, 1 \} \\
+      T &= A \ \cup \ \{ , \} \ \cup \  \{ \blm,  X \} \\
+      L &= \{1, 10, 11, 100, 101, 110, 111, 1000, 1001, \ldots \} \\
+      f(s) &= 1s,s \\
+  \end{align*}
+
+  
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{rl}
+        \textbf{State} & \textbf{Description} \\
+        \midrule
+        \( q_0 \) & Append a comma. \\
+        \( q_1 \) & Move left to start. \\
+        \( q_2 \) & Check if 0 or 1, mark X. \\
+        \( q_3 \) & Move right to end, append 0. \\
+        \( q_4 \) & Move right to end, append 1. \\
+        \( q_5 \) & Move left to X, overwrite 0, back to \(q_2\). \\
+        \( q_6 \) & Move left to X, overwrite 1, back to \(q_2\). \\
+        \( q_7 \) & Move to start, prepend 1. \\
+        \( q_8 \) & Back to start, end. \\
+    \end{tabular}
+  \end{table}
+
+  \begin{table}
+    \centering
+    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
+      \toprule
+      State & Input & Write & Move & Next \\
+      \midrule
+      % Right to Write a comma at end on input.
+      \(q_0\) & \bl &   , & L & \(q_1\) \\
+      \(q_0\) &   0 &   0 & R & \(q_0\) \\
+      \(q_0\) &   1 &   1 & R & \(q_0\) \\
+      \(q_0\) &   , &   , & R & \(q_f\) \\
+      \(q_0\) &   X &   X & R & \(q_f\) \\
+      \midrule
+      % Left to start.
+      \(q_1\) & \bl & \bl & R & \(q_2\) \\
+      \(q_1\) &   0 &   0 & L & \(q_1\) \\
+      \(q_1\) &   1 &   1 & L & \(q_1\) \\
+      \(q_1\) &   , &   , & R & \(q_f\) \\
+      \(q_1\) &   X &   X & R & \(q_f\) \\
+      \midrule
+      % Overwrite first symbol with X.
+      \(q_2\) & \bl & \bl & R & \(q_f\) \\
+      \(q_2\) &   0 &   X & R & \(q_3\) \\
+      \(q_2\) &   1 &   X & R & \(q_4\) \\
+      \(q_2\) &   , &   , & R & \(q_f\) \\
+      \(q_2\) &   X &   X & R & \(q_f\) \\
+      \midrule
+      % Left to write a 0 at the end.
+      \(q_3\) & \bl &   0 & L & \(q_5\) \\
+      \(q_3\) &   0 &   0 & R & \(q_3\) \\
+      \(q_3\) &   1 &   1 & R & \(q_3\) \\
+      \(q_3\) &   , &   , & R & \(q_3\) \\
+      \(q_3\) &   X &   X & R & \(q_f\) \\
+      \midrule
+      % Left to write a 1 at the end.
+      \(q_4\) & \bl &   1 & L & \(q_6\) \\
+      \(q_4\) &   0 &   0 & R & \(q_4\) \\
+      \(q_4\) &   1 &   1 & R & \(q_4\) \\
+      \(q_4\) &   , &   , & R & \(q_4\) \\
+      \(q_4\) &   X &   X & R & \(q_f\) \\
+      \midrule
+      % Left to the X, overwrite with 0
+      \(q_5\) & \bl & \bl & L & \(q_f\) \\
+      \(q_5\) &   0 &   0 & L & \(q_5\) \\
+      \(q_5\) &   1 &   1 & L & \(q_5\) \\
+      \(q_5\) &   , &   , & L & \(q_5\) \\
+      \(q_5\) &   X &   0 & R & \(q_2\) \\
+      \midrule
+      % Left to the X, overwrite with 1
+      \(q_6\) & \bl & \bl & L & \(q_f\) \\
+      \(q_6\) &   0 &   0 & L & \(q_6\) \\
+      \(q_6\) &   1 &   1 & L & \(q_6\) \\
+      \(q_6\) &   , &   , & L & \(q_6\) \\
+      \(q_6\) &   X &   1 & R & \(q_2\) \\
+      \midrule
+      % Left to start, prepend 1.
+      \(q_7\) & \bl &   1 & L & \(q_8\) \\
+      \(q_7\) &   0 &   0 & L & \(q_7\) \\
+      \(q_7\) &   1 &   1 & L & \(q_7\) \\
+      \(q_7\) &   , &   , & L & \(q_7\) \\
+      \(q_7\) &   X &   X & L & \(q_7\) \\
+      \midrule
+      % Back to start, accept.
+      \(q_7\) & \bl & \bl & R & \(q_a\) \\
+      \(q_7\) &   0 &   0 & R & \(q_f\) \\
+      \(q_7\) &   1 &   1 & R & \(q_f\) \\
+      \(q_7\) &   , &   , & R & \(q_f\) \\
+      \(q_7\) &   X &   X & R & \(q_f\) \\
+      \bottomrule
+    \end{tabular}
+    \caption{Turing machine state table}
+    \label{table:statetable}
+  \end{table}
+    
+ 
+  %\bibliographystyle{plain}
+  %\bibliography{bibliography}
+\end{document}

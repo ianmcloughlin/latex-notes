@@ -1,0 +1,247 @@
+\documentclass[a4paper, hidelinks, twocolumn, 9pt]{article}
+      \usepackage[a4paper, right=20mm, left=20mm, top=20mm, bottom=20mm]{geometry}  % Changing headers and footers.
+  % Enables the use of colour.
+  \usepackage{xcolor}
+  % Syntax high-lighting for code. Requires Python's pygments.
+  \usepackage{minted}
+  % Enables the use of umlauts and other accents.
+  \usepackage[utf8]{inputenc}
+  % Diagrams.
+  \usepackage{tikz}
+  % Settings for captions, such as sideways captions.
+  \usepackage{caption}
+  % Symbols for units, like degrees and ohms.
+  \usepackage{gensymb}
+  % Latin modern fonts - better looking than the defaults.
+  \usepackage{lmodern}
+  % Allows for columns spanning multiple rows in tables.
+  \usepackage{multirow}
+  % Better looking tables, including nicer borders.
+  \usepackage{booktabs}
+  % More math symbols.
+  \usepackage{amssymb}
+  % More math fonts, like \mathbb.
+  \usepackage{amsfonts}
+  % More math layouts, equation arrays, etc.
+  \usepackage{amsmath}
+  % More theorem environments.
+  \usepackage{amsthm}
+  % More column formats for tables. 
+  \usepackage{array}
+  % Adjust the sizes of box environments.
+  \usepackage{adjustbox}
+  % Better looking single quotes in verbatim and minted environments.
+  \usepackage{upquote}
+  % Better blank space decisions.
+  \usepackage{xspace}
+  % Better looking tikz trees.
+  \usepackage{forest}
+  % URLs.
+  \usepackage{hyperref}
+  % Plotting.
+  \usepackage{pgfplots}
+  % Page styling.
+
+  \usepackage{fancyhdr}
+  % Calculates the number of pages.
+  \usepackage{lastpage}
+  % Styling the abstract.
+  \usepackage{abstract}
+
+  % Titling
+  \usepackage{titling}
+  
+  % Various tikz libraries.
+  % For drawing mind maps.
+  \usetikzlibrary{mindmap}
+  % For adding shadows.
+  \usetikzlibrary{shadows}
+  % Extra arrows tips.
+  \usetikzlibrary{arrows.meta}
+  % Old arrows.
+  \usetikzlibrary{arrows}
+  % Automata.
+  \usetikzlibrary{automata}
+  % For more positioning options.
+  \usetikzlibrary{positioning}
+  % Creating chains of nodes on a line.
+  \usetikzlibrary{chains}
+  % Fitting node to contain set of coordinates.
+  \usetikzlibrary{fit}
+  % Extra shapes for drawing.
+  \usetikzlibrary{shapes}
+  % For markings on paths.
+  \usetikzlibrary{decorations.markings}
+  % For advanced calculations.
+  \usetikzlibrary{calc}
+  
+  % GMIT colours.
+  \definecolor{gmitblue}{RGB}{20,134,225}
+  \definecolor{gmitred}{RGB}{220,20,60}
+  \definecolor{gmitgrey}{RGB}{67,67,67}
+
+  %%%%%% CHANGE
+  % Name of the topic.
+  \newcommand{\topicname}{Example Turing Machine}
+  \newcommand{\blm}{\sqcup}
+  \newcommand{\bl}{\(\blm\)}
+  
+  %%%%%%
+
+  % Abstract
+  \renewcommand{\abstractname}{}
+  \renewcommand{\absnamepos}{empty}
+
+  % Environments
+  \newtheorem*{remark}{Remark}
+  \newtheorem*{definition}{Definition}
+
+  % Tables
+  \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+  % Bibliography
+  \renewcommand{\refname}{\selectfont\normalsize References} 
+
+  \title{\topicname}
+  \author{}
+  \date{}
+
+  \pgfplotsset{compat=1.16}
+  
+  \pagestyle{fancy}
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \rhead{\url{ian.mcloughlin@gmit.ie}}
+  
+  \lhead{\today}
+ 
+\setlength{\droptitle}{-40pt}
+ %%begin novalidate
+\posttitle{\par\end{center}\vspace{-50pt}}
+ %%end novalidate
+\setlength{\columnsep}{20mm}
+\setlength{\columnseprule}{0.1mm}
+
+\setlength{\parindent}{0pt} 
+ 
+\begin{document}
+  
+  \maketitle
+  \thispagestyle{fancy}
+
+  \section*{Language}
+  \begin{align*}
+      A    &= \{ 0, 1 \} \\
+      A^*  &= \{ \epsilon, 0, 1, 00, 01, 10, 11, 000, \ldots \} \\
+      L    &= \{ \epsilon, 01, 0011, 000111, \ldots \} \\
+      A^* \setminus L &= \{ 0, 1, 00, 10, \ldots \} \\[2mm]
+    \mathbb{N}_0 &= \{ 0 , 1 , 2 , 3 , \ldots \} \\
+      L &= \{ 0^i 1^i | i \in \mathbb{N}_0 \} \\
+  \end{align*}
+  
+  \section*{Turing machine}
+  \begin{center}
+    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
+      \toprule
+      State & Input & Write & Move & Next \\
+      \midrule
+      \(q_0\) & \bl & \bl & R & \(q_a\) \\
+      \(q_0\) &   0 & \bl & R & \(q_1\) \\
+      \(q_0\) &   1 &   1 & R & \(q_f\) \\
+      \midrule
+      \(q_1\) & \bl & \bl & L & \(q_2\) \\
+      \(q_1\) &   0 &   0 & R & \(q_1\) \\
+      \(q_1\) &   1 &   1 & R & \(q_1\) \\
+      \midrule
+      \(q_2\) & \bl & \bl & R & \(q_f\) \\
+      \(q_2\) &   0 &   0 & R & \(q_f\) \\
+      \(q_2\) &   1 & \bl & L & \(q_3\) \\
+      \midrule
+      \(q_3\) & \bl & \bl & R & \(q_0\) \\
+      \(q_3\) &   0 &   0 & L & \(q_3\) \\
+      \(q_3\) &   1 &   1 & L & \(q_3\) \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+
+  \section*{Example input}
+  
+  \begin{align*}
+    &\           q_0 000111    \rightarrow  q_1 00111  \rightarrow 0 q_1 0111 \rightarrow 00 q_1 111 \\
+    &\rightarrow 001 q_1 11    \rightarrow 0011 q_1 1  \rightarrow 00111 q_1  \rightarrow 0011 q_2 1 \\
+    &\rightarrow 001 q_3 1     \rightarrow 00 q_3 11   \rightarrow 0 q_3 011  \rightarrow q_3 0011   \\
+    &\rightarrow q_3 \blm 0011 \rightarrow q_0 0011    \rightarrow q_1 011    \rightarrow 0 q_1 11   \\
+    &\rightarrow 01 q_1 1      \rightarrow 011 q_1     \rightarrow 01 q_2 1   \rightarrow 0 q_3 1    \\
+    &\rightarrow q_3 01        \rightarrow q_3 \blm 01 \rightarrow q_0 01     \rightarrow q_1 1      \\
+    &\rightarrow 1 q_1         \rightarrow q_2 1       \rightarrow q_3        \rightarrow q_1 \rightarrow q_a \\
+  \end{align*}
+
+  \subsection*{Steps}
+  \begin{align*}
+    &q_0 000111 \rightarrow \ldots 13 \textrm{ steps} \ldots \rightarrow q_0 0011 \\
+    &\rightarrow \ldots 9 \textrm{ steps} \ldots \rightarrow q_0 01 \rightarrow \ldots 5 \textrm{ steps} \ldots\\
+    & \rightarrow q_0 \rightarrow \ldots 1 \textrm{ step} \ldots \rightarrow q_a \qquad (28 \textrm{ total})
+  \end{align*}
+  
+  
+    \subsection*{Simulation}
+    
+    \begin{center}
+    \begin{tabular}{crrrrrrrr}
+      \toprule
+      $n$   & 0 &  2 &  4 &  6 &  8 & 10 & 12 &  14 \\
+      \midrule
+      $f(n)$ & 1 &  6 & 15 & 28 & 45 & 66 & 91 & 120 \\
+      \bottomrule
+    \end{tabular}
+    \end{center}
+    
+    \subsection*{Sequence}
+    OEIS~\cite{oeisA000384} gives sequence formula:
+    \[ a(i):\mathbb{N} \rightarrow \mathbb{N}_0 = i (2i - 1) \]
+
+    So, \(a(1)=1\), \(a(2)=6\), \(a(3)=15\), and so on.
+    We index as \(2\mathbb{N} = \{ 0,2,4,6,8,10,\ldots \} \). Transform:
+    \[ h(n):2\mathbb{N}_0 \rightarrow \mathbb{N} = \frac{n}{2} + 1. \]
+    So, \(h(0)=1\), \(h(2)=2\), \(h(4)=3\), and so on.
+
+    \begin{align*}
+    f(n):2\mathbb{N}_0 \rightarrow \mathbb{N}_0 &= a(h(n)) \\
+         &= \left(\frac{n}{2} + 1\right) \left(2 \left(\frac{n}{2} + 1\right) - 1 \right) \\
+         &= \left(\frac{n}{2} + 1\right) \left(n + 2 - 1\right) \\
+         &= \frac{1}{2} \left(n + 2\right) \left(n + 1\right) \\
+         &= \frac{1}{2} \left(n^2 + 3n + 2 \right) \\
+    \end{align*}
+    
+    So, $f(n)$ is $O(n^2)$.
+    
+    \subsection*{Justification}
+    Is \( f(n) \) the correct formula for the number of steps taken for an accepted input of length \(n\)?
+    
+    Each pass right and left across the \(j\) non-blank tape cells, the machine takes \(j+1\) steps right, followed by \(j\) steps left.
+    \begin{center}
+    \begin{tabular}{llrr}
+    \toprule
+        \textbf{Start} & \textbf{End} & \textbf{Right} & \textbf{Left} \\
+        \midrule
+        000111       & 0011         & 7 & 6 \\
+        0011         & 01           & 5 & 4 \\
+        01           & \(\epsilon\) & 3 & 2 \\
+        \(\epsilon\) & \(q_a\)     & 1 & 0 \\
+    \bottomrule
+    \end{tabular}
+    \end{center}
+    
+    \begin{align*}
+       f(n) &= (n+1) + n + \ldots + 2 + 1 + 0 \\
+            &= \left((n+1) + 0\right) + \left((n) + 1\right) + \ldots \\
+            &= \left(\frac{n}{2} + 1\right)(n+1) \\
+    \end{align*}
+    
+    \subsection*{Decider}
+    Does the Turing Machine always halt and if so, does it reject in \(O(n^2)\)?
+    Is \(L \in \mathbf{P}\)?
+    
+  \bibliographystyle{plain}
+  \bibliography{bibliography}
+\end{document}
