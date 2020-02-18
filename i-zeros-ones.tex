@@ -1,5 +1,6 @@
 \documentclass[a4paper, hidelinks, twocolumn, 9pt]{article}
-      \usepackage[a4paper, right=20mm, left=20mm, top=20mm, bottom=20mm]{geometry}  % Changing headers and footers.
+  % Change page geometry.
+  \usepackage[a4paper, right=20mm, left=20mm, top=20mm, bottom=20mm]{geometry} 
   % Enables the use of colour.
   \usepackage{xcolor}
   % Syntax high-lighting for code. Requires Python's pygments.
@@ -40,14 +41,12 @@
   \usepackage{hyperref}
   % Plotting.
   \usepackage{pgfplots}
-  % Page styling.
-
+  % Changing headers and footers.
   \usepackage{fancyhdr}
   % Calculates the number of pages.
   \usepackage{lastpage}
   % Styling the abstract.
   \usepackage{abstract}
-
   % Titling
   \usepackage{titling}
   
@@ -80,14 +79,10 @@
   \definecolor{gmitred}{RGB}{220,20,60}
   \definecolor{gmitgrey}{RGB}{67,67,67}
 
-  %%%%%% CHANGE
-  % Name of the topic.
-  \newcommand{\topicname}{Example Turing Machine}
+  % Blank symbols.
   \newcommand{\blm}{\sqcup}
   \newcommand{\bl}{\(\blm\)}
   
-  %%%%%%
-
   % Abstract
   \renewcommand{\abstractname}{}
   \renewcommand{\absnamepos}{empty}
@@ -102,10 +97,7 @@
   % Bibliography
   \renewcommand{\refname}{\selectfont\normalsize References} 
 
-  \title{\topicname}
-  \author{}
-  \date{}
-
+  
   \pgfplotsset{compat=1.16}
   
   \pagestyle{fancy}
@@ -115,15 +107,19 @@
   
   \lhead{\today}
  
-\setlength{\droptitle}{-40pt}
- %%begin novalidate
-\posttitle{\par\end{center}\vspace{-50pt}}
- %%end novalidate
-\setlength{\columnsep}{20mm}
-\setlength{\columnseprule}{0.1mm}
-
-\setlength{\parindent}{0pt} 
+  \setlength{\droptitle}{-40pt}
+  %%begin novalidate
+  \posttitle{\par\end{center}\vspace{-50pt}}
+  %%end novalidate
+  \setlength{\columnsep}{20mm}
+  \setlength{\columnseprule}{0.1mm}
+  \setlength{\parindent}{0pt} 
  
+  % Title, etc.
+  \title{Example Turing Machine}
+  \author{}
+  \date{}
+
 \begin{document}
   
   \maketitle

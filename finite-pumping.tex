@@ -1,0 +1,160 @@
+\documentclass[a4paper, hidelinks, twocolumn, 9pt]{article}
+  % Change page geometry.
+  \usepackage[a4paper, right=20mm, left=20mm, top=20mm, bottom=20mm]{geometry} 
+  % Enables the use of colour.
+  \usepackage{xcolor}
+  % Syntax high-lighting for code. Requires Python's pygments.
+  \usepackage{minted}
+  % Enables the use of umlauts and other accents.
+  \usepackage[utf8]{inputenc}
+  % Diagrams.
+  \usepackage{tikz}
+  % Settings for captions, such as sideways captions.
+  \usepackage{caption}
+  % Symbols for units, like degrees and ohms.
+  \usepackage{gensymb}
+  % Latin modern fonts - better looking than the defaults.
+  \usepackage{lmodern}
+  % Allows for columns spanning multiple rows in tables.
+  \usepackage{multirow}
+  % Better looking tables, including nicer borders.
+  \usepackage{booktabs}
+  % More math symbols.
+  \usepackage{amssymb}
+  % More math fonts, like \mathbb.
+  \usepackage{amsfonts}
+  % More math layouts, equation arrays, etc.
+  \usepackage{amsmath}
+  % More theorem environments.
+  \usepackage{amsthm}
+  % More column formats for tables. 
+  \usepackage{array}
+  % Adjust the sizes of box environments.
+  \usepackage{adjustbox}
+  % Better looking single quotes in verbatim and minted environments.
+  \usepackage{upquote}
+  % Better blank space decisions.
+  \usepackage{xspace}
+  % Better looking tikz trees.
+  \usepackage{forest}
+  % URLs.
+  \usepackage{hyperref}
+  % Plotting.
+  \usepackage{pgfplots}
+  % Changing headers and footers.
+  \usepackage{fancyhdr}
+  % Calculates the number of pages.
+  \usepackage{lastpage}
+  % Styling the abstract.
+  \usepackage{abstract}
+  % Titling
+  \usepackage{titling}
+  
+  % Various tikz libraries.
+  % For drawing mind maps.
+  \usetikzlibrary{mindmap}
+  % For adding shadows.
+  \usetikzlibrary{shadows}
+  % Extra arrows tips.
+  \usetikzlibrary{arrows.meta}
+  % Old arrows.
+  \usetikzlibrary{arrows}
+  % Automata.
+  \usetikzlibrary{automata}
+  % For more positioning options.
+  \usetikzlibrary{positioning}
+  % Creating chains of nodes on a line.
+  \usetikzlibrary{chains}
+  % Fitting node to contain set of coordinates.
+  \usetikzlibrary{fit}
+  % Extra shapes for drawing.
+  \usetikzlibrary{shapes}
+  % For markings on paths.
+  \usetikzlibrary{decorations.markings}
+  % For advanced calculations.
+  \usetikzlibrary{calc}
+  
+  % GMIT colours.
+  \definecolor{gmitblue}{RGB}{20,134,225}
+  \definecolor{gmitred}{RGB}{220,20,60}
+  \definecolor{gmitgrey}{RGB}{67,67,67}
+
+  % Blank symbols.
+  \newcommand{\blm}{\sqcup}
+  \newcommand{\bl}{\(\blm\)}
+  
+  % Abstract
+  \renewcommand{\abstractname}{}
+  \renewcommand{\absnamepos}{empty}
+
+  % Environments
+  \newtheorem*{remark}{Remark}
+  \newtheorem*{definition}{Definition}
+
+  % Tables
+  \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+  % Bibliography
+  \renewcommand{\refname}{\selectfont\normalsize References} 
+
+  
+  \pgfplotsset{compat=1.16}
+  
+  \pagestyle{fancy}
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \rhead{\url{ian.mcloughlin@gmit.ie}}
+  
+  \lhead{\today}
+ 
+  \setlength{\droptitle}{-40pt}
+  %%begin novalidate
+  \posttitle{\par\end{center}\vspace{-50pt}}
+  %%end novalidate
+  \setlength{\columnsep}{20mm}
+  \setlength{\columnseprule}{0.1mm}
+  \setlength{\parindent}{0pt} 
+ 
+  % Title, etc.
+  \title{Pumping Lemma for Finite Automata}
+  \author{}
+  \date{}
+
+\begin{document}
+  
+  \maketitle
+  \thispagestyle{fancy}
+
+  
+  \section*{Theorem}
+    Let \(L\) be an infinite regular language.
+    Let \(p\) be the number of states in a deterministic finite automaton that recognises \(L\).
+    Then any string \(s\) in \(L\) of length at least \(p = |s|\) can be broken into three substrings \(s=xyz\) such that:
+    \begin{itemize}
+      \item \(|y| > 0\) ,
+      \item \(|xy| \leq p\), and
+      \item \(xy^iz \in L\) for all \(i \in \mathbb{N}_0\).
+    \end{itemize}
+  
+    \section*{Rationale}
+      Once we read \(p\) characters from \(s\), we must have visited some state twice\footnote{At least one state at least twice.}.
+      Suppose \(q\) is a state we visit twice, and call \(y\) the substring of \(s\) that we read between the two visits.
+
+      When we can delete \(y\) from \(s\) and the automaton must accept this new string also.
+      Likewise we can repeat \(y\) any number of times to create a new string that must also be accepted.
+
+      Note the automaton essentially forgets the path it took to a given state -- once it arrives at a given state it can't remember how it got there.
+
+    \section*{Example}
+
+    \section*{Non-regular example}
+      \[L = \{0^i1^i | i \in \mathbb{N}_0\}\]
+      \[s = 0^p1^p = xyz \]
+      \[|xy| \leq p \Rightarrow y = 0^n, n \in \mathbb{N}\]
+      \[\Rightarrow 0^{p-n}0^{2n}1^n \in L \]
+      That's a contradiction.
+
+    
+  \bibliographystyle{plain}
+  \bibliography{bibliography}
+\end{document}
