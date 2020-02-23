@@ -1,129 +1,14 @@
-\documentclass[a4paper, hidelinks, twocolumn, 9pt]{article}
-  % Change page geometry.
-  \usepackage[a4paper, right=20mm, left=20mm, top=20mm, bottom=20mm]{geometry} 
-  % Enables the use of colour.
-  \usepackage{xcolor}
-  % Syntax high-lighting for code. Requires Python's pygments.
-  \usepackage{minted}
-  % Enables the use of umlauts and other accents.
-  \usepackage[utf8]{inputenc}
-  % Diagrams.
-  \usepackage{tikz}
-  % Settings for captions, such as sideways captions.
-  \usepackage{caption}
-  % Symbols for units, like degrees and ohms.
-  \usepackage{gensymb}
-  % Latin modern fonts - better looking than the defaults.
-  \usepackage{lmodern}
-  % Allows for columns spanning multiple rows in tables.
-  \usepackage{multirow}
-  % Better looking tables, including nicer borders.
-  \usepackage{booktabs}
-  % More math symbols.
-  \usepackage{amssymb}
-  % More math fonts, like \mathbb.
-  \usepackage{amsfonts}
-  % More math layouts, equation arrays, etc.
-  \usepackage{amsmath}
-  % More theorem environments.
-  \usepackage{amsthm}
-  % More column formats for tables. 
-  \usepackage{array}
-  % Adjust the sizes of box environments.
-  \usepackage{adjustbox}
-  % Better looking single quotes in verbatim and minted environments.
-  \usepackage{upquote}
-  % Better blank space decisions.
-  \usepackage{xspace}
-  % Better looking tikz trees.
-  \usepackage{forest}
-  % URLs.
-  \usepackage{hyperref}
-  % Plotting.
-  \usepackage{pgfplots}
-  % Changing headers and footers.
-  \usepackage{fancyhdr}
-  % Calculates the number of pages.
-  \usepackage{lastpage}
-  % Styling the abstract.
-  \usepackage{abstract}
-  % Titling
-  \usepackage{titling}
-  
-  % Various tikz libraries.
-  % For drawing mind maps.
-  \usetikzlibrary{mindmap}
-  % For adding shadows.
-  \usetikzlibrary{shadows}
-  % Extra arrows tips.
-  \usetikzlibrary{arrows.meta}
-  % Old arrows.
-  \usetikzlibrary{arrows}
-  % Automata.
-  \usetikzlibrary{automata}
-  % For more positioning options.
-  \usetikzlibrary{positioning}
-  % Creating chains of nodes on a line.
-  \usetikzlibrary{chains}
-  % Fitting node to contain set of coordinates.
-  \usetikzlibrary{fit}
-  % Extra shapes for drawing.
-  \usetikzlibrary{shapes}
-  % For markings on paths.
-  \usetikzlibrary{decorations.markings}
-  % For advanced calculations.
-  \usetikzlibrary{calc}
-  
-  % GMIT colours.
-  \definecolor{gmitblue}{RGB}{20,134,225}
-  \definecolor{gmitred}{RGB}{220,20,60}
-  \definecolor{gmitgrey}{RGB}{67,67,67}
+\documentclass{notes}
 
-  % Blank symbols.
-  \newcommand{\blm}{\sqcup}
-  \newcommand{\bl}{\(\blm\)}
-  
-  % Abstract
-  \renewcommand{\abstractname}{}
-  \renewcommand{\absnamepos}{empty}
-
-  % Environments
-  \newtheorem*{remark}{Remark}
-  \newtheorem*{definition}{Definition}
-
-  % Tables
-  \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
-
-  % Bibliography
-  \renewcommand{\refname}{\selectfont\normalsize References} 
-
-  
-  \pgfplotsset{compat=1.16}
-  
-  \pagestyle{fancy}
-  \fancyhf{}
-  \renewcommand{\headrulewidth}{0pt}
-  \rhead{\url{ian.mcloughlin@gmit.ie}}
-  
-  \lhead{\today}
- 
-  \setlength{\droptitle}{-40pt}
-  %%begin novalidate
-  \posttitle{\par\end{center}\vspace{-50pt}}
-  %%end novalidate
-  \setlength{\columnsep}{20mm}
-  \setlength{\columnseprule}{0.1mm}
-  \setlength{\parindent}{0pt} 
- 
-  % Title, etc.
-  \title{Pumping Lemma for Finite Automata}
-  \author{}
-  \date{}
+  \title{Pumping Lemma}
+  \author{ian.mcloughlin@gmit.ie}
+  \date{\today}
 
 \begin{document}
+
   
-  \maketitle
-  \thispagestyle{fancy}
+
+  
 
   
   \section*{Theorem}
@@ -154,7 +39,5 @@
       \[\Rightarrow 0^{p-n}0^{2n}1^n \in L \]
       That's a contradiction.
 
-    
-  \bibliographystyle{plain}
   \bibliography{bibliography}
 \end{document}
