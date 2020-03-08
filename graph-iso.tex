@@ -148,7 +148,59 @@
       1 & 1 & 0 & 0 & 1 & 0 \\
     \end{bmatrix}
   \]
-  \section*{Encoding}
+
+  \section*{Permutation matrix}
+  Isomorphic \(\leftrightarrow\) \(\exists P\) such that \(A = PBP^\intercal\).
+
+  \[
+    \begin{bmatrix}
+      0 & 1 & 0 & 0 \\
+      1 & 0 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+      0 & 0 & 0 & 1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+      0 & 1 & 1 & 1 \\
+      1 & 0 & 0 & 0 \\
+      1 & 0 & 0 & 1 \\
+      1 & 0 & 1 & 0 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+      0 & 1 & 0 & 0 \\
+      1 & 0 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+      0 & 0 & 0 & 1 \\
+    \end{bmatrix} \]
+    \[ =
+    \begin{bmatrix}
+      0 & 1 & 0 & 0 \\
+      1 & 0 & 1 & 1 \\
+      0 & 1 & 0 & 1 \\
+      0 & 1 & 1 & 0 \\
+    \end{bmatrix}        
+  \]
+
+
+  \section*{Binary encoding}
+  \[
+    \begin{bmatrix}
+      0 & 1 & 1 & 0 & 0 & 1 \\
+      {\color{gmitred} 1} & 0 & 1 & 1 & 1 & 1 \\
+      {\color{gmitred} 1} & {\color{gmitred} 1} & 0 & 1 & 1 & 1 \\
+      {\color{gmitred} 0} & {\color{gmitred} 1} & {\color{gmitred} 1} & 0 & 0 & 0 \\
+      {\color{gmitred} 0} & {\color{gmitred} 1} & {\color{gmitred} 1} & {\color{gmitred} 0} & 0 & 1 \\
+      {\color{gmitred} 1} & {\color{gmitred} 1} & {\color{gmitred} 1} & {\color{gmitred} 0} & {\color{gmitred} 1} & 0 
+    \end{bmatrix}\]
+
+    \[ \rightarrow 011001101111110111011000011001111010 \]
+    \[ \textrm{or } { \color{gmitred} 111011011011101 } \]
+
+  \section*{Decision problem}
+    \[f(110101,101011) \rightarrow \textrm{Yes}\]
+    \[f(111011011011101,1011111101110011) \rightarrow \textrm{No}\]
+    \[f:\{0,1\}^* \times \{0,1\}^* \rightarrow \{0,1\} = 1 \textrm{ iff isomorphic} \]
+
+    \[ \mathbf{GRAPHISO} = \{(G_1, G_2) | f(G_1, G_2) = 1\} \]
 
   %\bibliography{bibliography}
 \end{document}
