@@ -1,0 +1,139 @@
+\documentclass{notes}
+
+  \title{Heap Sort}
+  \author{ian.mcloughlin@gmit.ie}
+  \date{\today}
+
+\begin{document}
+
+  
+
+  \section*{Sorting}  
+    \[l = (l_0, l_1, l_2, \ldots, l_{n-1})\]
+    \[l_0 \leq l_1 \leq \cdots \leq l_{n-1}\]
+
+  \section*{On a tree}
+
+  \begin{center}
+    \begin{forest}
+      for tree={circle, draw}
+      [\(l_0\)
+        [\(l_1\)
+          [\(l_3\)
+            [\(l_7\)]
+            [\(l_8\)]
+          ]
+          [\(l_4\)
+            [\(l_9\)]
+          ]
+        ]
+        [\(l_2\)
+          [\(l_5\)]
+          [\(l_6\)]
+        ]
+      ]
+    \end{forest}
+  \end{center}
+    
+  \section*{Heaps}
+    
+    \begin{description}
+      \item[Heap:] complete binary tree. 
+      \item[Max heap:] each parent bigger than children.
+      \item[Min heap:] each parent smaller than children.
+    \end{description}
+
+    Check for min/max heap in \((n-1)\) comparisons.
+
+  \section*{To max/min heap}
+    \begin{enumerate}
+      \item Start with last node, moving backwards.
+      \item Compare node to children, swap if needed.
+      \item Swap parent down tree until we have a heap.
+    \end{enumerate}
+
+    \begin{center}
+      \begin{forest}
+        for tree={circle, draw}
+        [\(10\)
+          [\(8\)
+            [\(9\)
+              [\(4\)]
+              [\(6\)]
+            ]
+            [\(3\)
+              [\(2\)]
+            ]
+          ]
+          [\(1\)
+            [\(7\)]
+            [\(5\)]
+          ]
+        ]
+      \end{forest}
+    \end{center}
+    
+    Last five nodes have no children.
+    Sixth-last has one child, is bigger so swap.
+    Now have a heap from sixth-last.
+    Same for seventh-last: swap 9 for 4.
+    Third node is a heap.
+    Second node swaps 2 for 8, and filters down swapping 3 for 8.
+    Finally, the root is swapped with 1 and then 5.
+    This gives:
+
+    \begin{center}
+      \begin{forest}
+        for tree={circle, draw}
+        [\(1\)
+          [\(2\)
+            [\(4\)
+              [\(9\)]
+              [\(6\)]
+            ]
+            [\(3\)
+              [\(8\)]
+            ]
+          ]
+          [\(5\)
+            [\(7\)]
+            [\(10\)]
+          ]
+        ]
+      \end{forest}
+    \end{center}
+  
+  \section*{Heap Sort}
+    \begin{enumerate}
+      \item Convert complete binary tree to heap.
+      \item Remove root, insert into new list.
+      \item Remove last element, place at root.
+      \item Repeat until empty.
+    \end{enumerate}
+
+  \section*{As an array}
+    
+  \begin{center}
+    \begin{forest}
+      for tree={circle, draw}
+      [\(l_i\)
+        [\(l_{2i + 1}\)]
+        [\(l_{2i + 2}\)]
+      ]
+    \end{forest}
+  \end{center}
+
+  \begin{align*}
+  &(&l_0&,&l_1&,&l_2&,&l_3&,&l_4&,&l_5&,&l_6&,&l_7&,&l_8&,&l_9\ &)&\\
+  &(&10&,&8&,&1&,&9&,&{\color{gmitred}3}&,&7&,&5&,&4&,&6&,&{\color{gmitred}2}\ &)&\\
+  &(&10&,&8&,&1&,&{\color{gmitred}9}&,&2&,&7&,&5&,&{\color{gmitred}4}&,&{\color{gmitred}6}&,&3\ &)&\\
+  &(&10&,&{\color{gmitred}8}&,&1&,&{\color{gmitred}4}&,&{\color{gmitred}2}&,&7&,&5&,&9&,&6&,&3\ &)&\\
+  &(&10&,&2&,&1&,&4&,&{\color{gmitred}8}&,&7&,&5&,&9&,&6&,&{\color{gmitred}3}\ &)&\\
+  &(&{\color{gmitred}10}&,&{\color{gmitred}2}&,&{\color{gmitred}1}&,&4&,&3&,&7&,&5&,&9&,&6&,&8\ &)&\\
+  &(&1&,&2&,&{\color{gmitred}10}&,&4&,&3&,&{\color{gmitred}7}&,&{\color{gmitred}5}&,&9&,&6&,&8\ &)&\\
+  &(&1&,&2&,&5&,&4&,&3&,&7&,&10&,&9&,&6&,&8\ &)&\\
+  \end{align*}
+  
+
+  %\bibliography{bibliography}
+\end{document}
