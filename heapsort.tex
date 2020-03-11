@@ -45,72 +45,66 @@
 
     Check for min/max heap in \((n-1)\) comparisons.
 
-  \section*{To max/min heap}
+  \section*{To min or max heap}
     \begin{enumerate}
       \item Start with last node, moving backwards.
       \item Compare node to children, swap if needed.
       \item Swap parent down tree until we have a heap.
     \end{enumerate}
 
+    \section*{Example heap}
+    Sort ascending \(\rightarrow\) use max heap.
+
     \begin{center}
       \begin{forest}
         for tree={circle, draw}
-        [\(10\)
-          [\(8\)
-            [\(9\)
-              [\(4\)]
-              [\(6\)]
+        [\(1\)
+          [\(3\)
+            [\(2\)
+              [\(7\)]
+              [\(5\)]
             ]
-            [\(3\)
-              [\(2\)]
+            [\(8\)
+              [\(9\)]
             ]
           ]
-          [\(1\)
-            [\(7\)]
-            [\(5\)]
+          [\(10\)
+            [\(4\)]
+            [\(6\)]
           ]
         ]
       \end{forest}
     \end{center}
     
     Last five nodes have no children.
-    Sixth-last has one child, is bigger so swap.
+    Sixth-last has one child, is smaller so swap.
     Now have a heap from sixth-last.
-    Same for seventh-last: swap 9 for 4.
+    Same for seventh-last: swap 2 for 5.
     Third node is a heap.
-    Second node swaps 2 for 8, and filters down swapping 3 for 8.
-    Finally, the root is swapped with 1 and then 5.
-    This gives:
+    Second node swaps 9 for 3, and filters down swapping 3 for 8.
+    Finally, the root is swapped with 1 and then 6.
 
     \begin{center}
       \begin{forest}
         for tree={circle, draw}
-        [\(1\)
-          [\(2\)
-            [\(4\)
-              [\(9\)]
-              [\(6\)]
+        [\(10\)
+          [\(9\)
+            [\(7\)
+              [\(2\)]
+              [\(5\)]
             ]
-            [\(3\)
-              [\(8\)]
+            [\(8\)
+              [\(3\)]
             ]
           ]
-          [\(5\)
-            [\(7\)]
-            [\(10\)]
+          [\(6\)
+            [\(4\)]
+            [\(1\)]
           ]
         ]
       \end{forest}
     \end{center}
   
-  \section*{Heap Sort}
-    \begin{enumerate}
-      \item Convert complete binary tree to heap.
-      \item Remove root, insert into new list.
-      \item Remove last element, place at root.
-      \item Repeat until empty.
-    \end{enumerate}
-
   \section*{As an array}
     
   \begin{center}
@@ -125,15 +119,38 @@
 
   \begin{align*}
   &(&l_0&,&l_1&,&l_2&,&l_3&,&l_4&,&l_5&,&l_6&,&l_7&,&l_8&,&l_9\ &)&\\
-  &(&10&,&8&,&1&,&9&,&{\color{gmitred}3}&,&7&,&5&,&4&,&6&,&{\color{gmitred}2}\ &)&\\
-  &(&10&,&8&,&1&,&{\color{gmitred}9}&,&2&,&7&,&5&,&{\color{gmitred}4}&,&{\color{gmitred}6}&,&3\ &)&\\
-  &(&10&,&{\color{gmitred}8}&,&1&,&{\color{gmitred}4}&,&{\color{gmitred}2}&,&7&,&5&,&9&,&6&,&3\ &)&\\
-  &(&10&,&2&,&1&,&4&,&{\color{gmitred}8}&,&7&,&5&,&9&,&6&,&{\color{gmitred}3}\ &)&\\
-  &(&{\color{gmitred}10}&,&{\color{gmitred}2}&,&{\color{gmitred}1}&,&4&,&3&,&7&,&5&,&9&,&6&,&8\ &)&\\
-  &(&1&,&2&,&{\color{gmitred}10}&,&4&,&3&,&{\color{gmitred}7}&,&{\color{gmitred}5}&,&9&,&6&,&8\ &)&\\
-  &(&1&,&2&,&5&,&4&,&3&,&7&,&10&,&9&,&6&,&8\ &)&\\
+  &(&1&,&3&,&10&,&2&,&{\color{gmitred}8}&,&4&,&6&,&7&,&5&,&{\color{gmitred}9}\ &)&\\
+  &(&1&,&3&,&10&,&{\color{gmitred}2}&,&9&,&4&,&6&,&{\color{gmitred}7}&,&{\color{gmitred}5}&,&8\ &)&\\
+  &(&1&,&{\color{gmitred}3}&,&10&,&{\color{gmitred}7}&,&{\color{gmitred}9}&,&4&,&6&,&2&,&5&,&8\ &)&\\
+  &(&1&,&9&,&10&,&7&,&{\color{gmitred}3}&,&4&,&6&,&2&,&5&,&{\color{gmitred}8}\ &)&\\
+  &(&{\color{gmitred}1}&,&{\color{gmitred}9}&,&{\color{gmitred}10}&,&7&,&8&,&4&,&6&,&2&,&5&,&3\ &)&\\
+  &(&10&,&9&,&{\color{gmitred}1}&,&7&,&8&,&{\color{gmitred}4}&,&{\color{gmitred}6}&,&2&,&5&,&3\ &)&\\
+  &(&10&,&9&,&6&,&7&,&8&,&4&,&1&,&2&,&5&,&3\ &)&\\
   \end{align*}
   
+  \section*{Heap Sort}
+    \begin{enumerate}
+      \item Convert complete binary tree to heap.
+      \item Swap root for last child, ignore last child.
+      \item Repeat \(n-1\) times.
+    \end{enumerate}
+
+    \begin{align*}
+      &(&l_0&,&l_1&,&l_2&,&l_3&,&l_4&,&l_5&,&l_6&,&l_7&,&l_8&,&l_9\ &)&\\
+      &(&10&,&9&,&6&,&7&,&8&,&4&,&1&,&2&,&5&,&3\ &)&\\
+      &(&3&,&9&,&6&,&7&,&8&,&4&,&1&,&2&,&5&,&{\color{gmitblue}10}\ &)&\\
+      &(&9&,&8&,&6&,&7&,&3&,&4&,&1&,&2&,&5&,&{\color{gmitblue}10}\ &)&\\
+      &(&5&,&8&,&6&,&7&,&3&,&4&,&1&,&2&,&{\color{gmitblue}9}&,&{\color{gmitblue}10}\ &)&\\
+      &(&8&,&7&,&6&,&5&,&3&,&4&,&1&,&2&,&{\color{gmitblue}9}&,&{\color{gmitblue}10}\ &)&\\
+      &(&2&,&7&,&6&,&5&,&3&,&4&,&1&,&{\color{gmitblue}8}&,&{\color{gmitblue}9}&,&{\color{gmitblue}10}\ &)&\\
+    \end{align*}
+
+  \section*{Comparisons}
+
+  \begin{description}
+    \item[To heap:] 
+  \end{description}
+
 
   %\bibliography{bibliography}
 \end{document}
