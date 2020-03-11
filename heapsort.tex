@@ -36,14 +36,11 @@
   \end{center}
     
   \section*{Heaps}
-    
+  Almost complete binary tree with heap property.  
     \begin{description}
-      \item[Heap:] complete binary tree. 
       \item[Max heap:] each parent bigger than children.
       \item[Min heap:] each parent smaller than children.
     \end{description}
-
-    Check for min/max heap in \((n-1)\) comparisons.
 
   \section*{To min or max heap}
     \begin{enumerate}
@@ -79,10 +76,10 @@
     Last five nodes have no children.
     Sixth-last has one child, is smaller so swap.
     Now have a heap from sixth-last.
-    Same for seventh-last: swap 2 for 5.
+    Same for seventh-last: swap 2 for 7.
     Third node is a heap.
     Second node swaps 9 for 3, and filters down swapping 3 for 8.
-    Finally, the root is swapped with 1 and then 6.
+    Finally, the root is swapped with 10 and then 6.
 
     \begin{center}
       \begin{forest}
@@ -121,6 +118,7 @@
   &(&l_0&,&l_1&,&l_2&,&l_3&,&l_4&,&l_5&,&l_6&,&l_7&,&l_8&,&l_9\ &)&\\
   &(&1&,&3&,&10&,&2&,&{\color{gmitred}8}&,&4&,&6&,&7&,&5&,&{\color{gmitred}9}\ &)&\\
   &(&1&,&3&,&10&,&{\color{gmitred}2}&,&9&,&4&,&6&,&{\color{gmitred}7}&,&{\color{gmitred}5}&,&8\ &)&\\
+  &(&1&,&3&,&{\color{gmitred}10}&,&7&,&9&,&{\color{gmitred}4}&,&{\color{gmitred}6}&,&2&,&5&,&8\ &)&\\
   &(&1&,&{\color{gmitred}3}&,&10&,&{\color{gmitred}7}&,&{\color{gmitred}9}&,&4&,&6&,&2&,&5&,&8\ &)&\\
   &(&1&,&9&,&10&,&7&,&{\color{gmitred}3}&,&4&,&6&,&2&,&5&,&{\color{gmitred}8}\ &)&\\
   &(&{\color{gmitred}1}&,&{\color{gmitred}9}&,&{\color{gmitred}10}&,&7&,&8&,&4&,&6&,&2&,&5&,&3\ &)&\\
