@@ -1,0 +1,143 @@
+\documentclass{notes}
+
+  \title{Trees}
+  \author{ian.mcloughlin@gmit.ie}
+  \date{\today}
+
+\begin{document}
+
+  \section*{Definitions}
+  \begin{description}
+    \item[Tree:] connected graph with no cycles.
+    \item[Rooted:] if one node identified as root.
+    \item[$m$-ary:] if every parent has $m$ children.
+    \item[Height:] maximum length of path to a leaf.
+    \item[Leaf:] is a node with no children.
+  \end{description}
+  
+  
+  \section*{Examples}
+
+    \begin{center}
+      \begin{forest}
+        for tree={circle, draw, fill}
+        [
+          [
+            [
+              []
+              []
+            ]
+            [
+              []
+              []
+            ]
+          ]
+          []
+        ]
+      \end{forest}
+    \end{center}
+
+  Binary ($2$-ary) tree of height 3.
+
+  \vspace{6mm}
+
+  \begin{center}
+    \begin{forest}
+      for tree={circle, draw, fill}
+      [
+        [
+          []
+          []
+          []
+        ]
+        [
+          []
+          []
+          []
+        ]
+        [
+          []
+          []
+          []
+        ]
+      ]
+    \end{forest}
+  \end{center}
+
+Ternary ($3$-ary) tree of height 2.
+
+\vspace{6mm}
+
+\begin{center}
+  \begin{forest}
+    for tree={circle, draw, fill}
+    [
+      []
+      []
+      []
+      []
+    ]
+  \end{forest}
+\end{center}
+
+$4$-ary tree of height 1.
+
+  \section*{Theorem}
+    $m$-ary tree with $l$ leaves has height at least $\log_m l$.
+
+  \section*{Log}
+
+    \[ b^a = c \Leftrightarrow \log_b c = a \]
+
+    \[ 10^2 = 100 \Leftrightarrow \log_{10} 100 = 2 \]
+
+  \section*{Rationale}
+    Maximum leaves is $l \leq m^h$.
+
+  \section*{Proof of theorem}
+
+    \[h \geq log_m l \  \Leftrightarrow \  m^h \geq m^{log_m l} \Leftrightarrow m^h \geq l \]
+
+    \vspace{2mm}
+
+    By induction on $h$:
+
+    \begin{description}
+      \item[$h = 0$:] $m^0 = 1$, $l = 1$, $1 \geq 1$.
+      \item[$h = n$:] Assume true for $h = n - 1$. Removing root gives $m$ trees with maximum $m^{n-1}$ leaves each. In total, we get maximimum of $m(m^{n-1}) = m^n$ leaves.
+    \end{description}
+
+    True for $h = 0$. Therefore true for $h = 0 + 1 = 1$. Therefore true for $h = 1 + 1 = 2$. Therefore true for $h = 2 + 1 = 3$. And so on.
+
+    \section*{Example}
+
+    \begin{center}
+      \begin{forest}
+        for tree={circle, draw, fill}
+        [
+          [,for tree={fill=red}
+            [
+              []
+              []
+            ]
+            [
+              []
+              []
+            ]
+          ]
+          [,for tree={fill=green}
+            [
+              []
+              []
+            ]
+            [
+              []
+              []
+            ]
+          ]
+        ]
+      \end{forest}
+    \end{center}
+
+  %\bibliography{bibliography}
+\end{document}
