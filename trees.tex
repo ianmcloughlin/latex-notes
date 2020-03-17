@@ -147,19 +147,19 @@ Ternary (\(3\)-ary) tree of height 2.
     \begin{center}
       \begin{forest}
         [\(a<b\)
-          [\(b<c\)
-            [\(abc\)]
-            [\(a<c\)
-              [\(acb\)]
-              [\(bca\)]
+          [\(b<c\), edge label={node[midway,above left,font=\tiny,blue] {y}}
+            [\(abc\), edge label={node[midway,left,font=\tiny,blue] {y}}]
+            [\(a<c\), edge label={node[midway,right,font=\tiny,blue] {n}}
+              [\(acb\), edge label={node[midway,left,font=\tiny,blue] {y}}]
+              [\(bca\), edge label={node[midway,right,font=\tiny,blue] {n}}]
             ]
           ]
-          [\(b<c\)
-            [\(a<c\)
-              [\(bac\)]
-              [\(cab\)]
+          [\(b<c\), edge label={node[midway,above right,font=\tiny,blue] {n}}
+            [\(a<c\), edge label={node[midway,left,font=\tiny,blue] {y}}
+              [\(bac\), edge label={node[midway,left,font=\tiny,blue] {y}}]
+              [\(cab\), edge label={node[midway,right,font=\tiny,blue] {n}}]
             ]
-            [\(cba\)]
+            [\(cba\), edge label={node[midway,right,font=\tiny,blue] {n}}]
           ]
         ]
       \end{forest}
