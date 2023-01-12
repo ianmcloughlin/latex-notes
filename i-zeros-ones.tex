@@ -1,12 +1,12 @@
 \documentclass{notes}
 
   \title{Example Turing Machine}
-  \author{ian.mcloughlin@gmit.ie}
+  \author{ian.mcloughlin@atu.ie}
   \date{\today}
 
 \begin{document}
 
-  
+  \maketitle
 
   \subsection*{Language}
   \begin{align*}
@@ -20,7 +20,7 @@
   
   \section*{Turing machine}
   \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
+    \begin{tabular}{ccccc}
       \toprule
       State & Input & Write & Move & Next \\
       \midrule
@@ -49,9 +49,9 @@
     &\           q_0 000111    \rightarrow  q_1 00111  \rightarrow 0 q_1 0111 \rightarrow 00 q_1 111 \\
     &\rightarrow 001 q_1 11    \rightarrow 0011 q_1 1  \rightarrow 00111 q_1  \rightarrow 0011 q_2 1 \\
     &\rightarrow 001 q_3 1     \rightarrow 00 q_3 11   \rightarrow 0 q_3 011  \rightarrow q_3 0011   \\
-    &\rightarrow q_3 \blm 0011 \rightarrow q_0 0011    \rightarrow q_1 011    \rightarrow 0 q_1 11   \\
+    &\rightarrow q_3 \bl 0011 \rightarrow q_0 0011    \rightarrow q_1 011    \rightarrow 0 q_1 11   \\
     &\rightarrow 01 q_1 1      \rightarrow 011 q_1     \rightarrow 01 q_2 1   \rightarrow 0 q_3 1    \\
-    &\rightarrow q_3 01        \rightarrow q_3 \blm 01 \rightarrow q_0 01     \rightarrow q_1 1      \\
+    &\rightarrow q_3 01        \rightarrow q_3 \bl 01 \rightarrow q_0 01     \rightarrow q_1 1      \\
     &\rightarrow 1 q_1         \rightarrow q_2 1       \rightarrow q_3        \rightarrow q_1 \rightarrow q_a \\
   \end{align*}
 
@@ -76,7 +76,7 @@
     \end{center}
     
     \subsection*{Sequence}
-    OEIS~\cite{oeisA000384} gives sequence formula:
+    OEIS~\autocite{oeisA000384} gives sequence formula:
     \[ a(i):\mathbb{N} \rightarrow \mathbb{N}_0 = i (2i - 1) \]
 
     So, \(a(1)=1\), \(a(2)=6\), \(a(3)=15\), and so on.
@@ -121,5 +121,4 @@
     Does the Turing Machine always halt and if so, does it reject in \(O(n^2)\)?
     Is \(L \in \mathbf{P}\)?
 
-  \bibliography{bibliography}
-\end{document}
+  \end{document}
