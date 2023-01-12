@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{notes}[2020/02/22 Ian's notes.]
+\ProvidesClass{iansnotes}[2023/01/12 v1.0.0 Ian's notes.]
 
 \LoadClass[a4paper, nobib]{tufte-handout}
 % Change page geometry.
