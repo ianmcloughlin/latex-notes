@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{iansnotes}[2023/01/18 v1.0.1 Ian's notes.]
+\ProvidesClass{iansnotes}[2023/01/27 v1.0.2 Ian's notes.]
 
 % Based on Tufte handout class.
 \LoadClass[a4paper, nobib]{tufte-handout}
