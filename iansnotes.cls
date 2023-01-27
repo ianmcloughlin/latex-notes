@@ -1,29 +1,23 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{iansnotes}[2023/01/12 v1.0.0 Ian's notes.]
+\ProvidesClass{iansnotes}[2023/01/18 v1.0.1 Ian's notes.]
 
+% Based on Tufte handout class.
 \LoadClass[a4paper, nobib]{tufte-handout}
-% Change page geometry.
 
-% Use Helvetica.
+% Palatino.
+\usepackage{newpxtext}
+% Helvetica.
 \usepackage{helvet}
-% Font.
+% Bera Mono.
 \usepackage{beramono}
-% Letter spacing.
-\usepackage{letterspace}
-% Math fonts.
-\usepackage{mathpazo}
-% Hyphens for letter spacing.
-\usepackage{soul}
+% More math layouts, equation arrays, etc.
+\usepackage{amsmath}
 % Enables the use of colour.
 \usepackage{xcolor}
 % Syntax high-lighting for code. Requires Python's pygments.
 \usepackage{minted}
-% URLs.
-%\usepackage[hidelinks]{hyperref}
 % Diagrams.
 \usepackage{tikz}
-% Latin modern fonts - better looking than the defaults.
-\usepackage{lmodern}
 % Allows for columns spanning multiple rows in tables.
 \usepackage{multirow}
 % Better looking tables, including nicer borders.
@@ -32,8 +26,6 @@
 \usepackage{amssymb}
 % More math fonts, like mathbb.
 \usepackage{amsfonts}
-% More math layouts, equation arrays, etc.
-\usepackage{amsmath}
 % More theorem environments.
 \usepackage{amsthm}
 % More column formats for tables.
@@ -58,14 +50,10 @@
 \usepackage{gensymb}
 % Calculates the number of pages.
 \usepackage{lastpage}
-% Styling the abstract.
-\usepackage{abstract}
+% Better table columns.
+\usepackage{array}
 % Bibliography.
-\usepackage[
-  style=verbose,
-  autocite=footnote,
-  backend=biber
-]{biblatex}
+\usepackage[style=verbose, autocite=footnote, backend=biber]{biblatex}
 
 % Various tikz libraries.
 % For drawing mind maps.
@@ -93,15 +81,11 @@
 % For layering.
 \usetikzlibrary{backgrounds}
   
-% Set minted up.
-\usemintedstyle{manni}
-\setminted{baselinestretch=1.2, bgcolor=gmitgrey!10}
-
-% Change the displayed name of the references section.
-\renewcommand{\refname}{\selectfont\large References} 
-
 % PGF plots version.
 \pgfplotsset{compat=1.18}
+
+% Fixed column width, centered.
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 % ATU colours.
 \definecolor{atunavy}{RGB}{0,26,121}
@@ -113,21 +97,22 @@
 \definecolor{atulightgreen}{RGB}{172,245,189}
 \definecolor{atuwarmgrey}{RGB}{200,190,191}
 \definecolor{atupurple}{RGB}{77,8,87}
+\definecolor{atuoffwhite}{RGB}{237,237,237}
 
-% Tell minted to use the following colour scheme. 
-\usemintedstyle{manni}
+% Set minted up.
+\usemintedstyle{igor}
+\setminted{frame=single, framesep=2mm, bgcolor=atuoffwhite}
 
 % Prevent minted from showing errors.
 \makeatletter
 \expandafter\def\csname PYGdefault@tok@err\endcsname{\def\PYGdefault@bc##1{{\strut ##1}}}
 \makeatother
 
-% CHange how hyperlinks are displayed.
-\hypersetup{
-  allcolors=atunavy
-}
+% Change how hyperlinks are displayed.
+\hypersetup{allcolors=atunavy}
 
 % For displaying a blank character.
 \newcommand{\bl}{\underline{\hspace{2mm}}}
 
+% Bibliography.
 \addbibresource{bibliography.bib}

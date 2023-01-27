@@ -1,25 +1,23 @@
-\documentclass{notes}
+\documentclass{iansnotes}
 
-  \title{Collatz Turing Machine}
-  \author{ian.mcloughlin@gmit.ie}
-  \date{\today}
+\title{Collatz Turing Machine}
+\author{ian.mcloughlin@gmit.ie}
+\date{\today}
 
 \begin{document}
 
-  
-
-  
 \section*{Language}
-  \begin{align*}
-    A &= \{ 0, 1 \} \\
-    T &= A \ \cup \ \{ , \} \ \cup \  \{ \blm,  X \} \\
-    L &= \{1, 10, 11, 100, 101, 110, 111, 1000, 1001, \ldots \} \\
-    f(s) &= 1s,s \\
-  \end{align*}
+  \begin{tabular}{@{}x{8mm}l}  
+    $A$    & $\{ 0, 1 \}$ \\
+    $T$    & $A \ \cup \ \{ , \} \ \cup \  \{ \bl,  X \}$ \\
+    $L$    & $\{1, 10, 11, 100, 101, 110, 111, 1000, 1001, \ldots \}$ \\
+    $f(s)$ & $1s,s$ \\
+  \end{tabular}
 
-\section*{Duplicate and append 1}
-  \begin{tabular}{rl}
-    \textbf{State} & \textbf{Description} \\
+\section*{Duplicate and append one}
+
+  \begin{tabular}{@{}x{8mm}l}
+    State & Description \\
     \midrule
     \( q_0 \) & Append a comma. \\
     \( q_1 \) & Move left to start. \\
@@ -32,80 +30,81 @@
     \( q_8 \) & Back to start, end. \\
   \end{tabular}
 
-  \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
-      \toprule
-      State & Input & Write & Move & Next \\
-      \midrule
-      % Right to Write a comma at end on input.
-      \(q_0\) & \bl &   , & L & \(q_1\) \\
-      \(q_0\) &   0 &   0 & R & \(q_0\) \\
-      \(q_0\) &   1 &   1 & R & \(q_0\) \\
-      \(q_0\) &   , &   , & R & \(q_f\) \\
-      \(q_0\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Left to start.
-      \(q_1\) & \bl & \bl & R & \(q_2\) \\
-      \(q_1\) &   0 &   0 & L & \(q_1\) \\
-      \(q_1\) &   1 &   1 & L & \(q_1\) \\
-      \(q_1\) &   , &   , & R & \(q_f\) \\
-      \(q_1\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Overwrite first symbol with X.
-      \(q_2\) & \bl & \bl & R & \(q_f\) \\
-      \(q_2\) &   0 &   X & R & \(q_3\) \\
-      \(q_2\) &   1 &   X & R & \(q_4\) \\
-      \(q_2\) &   , &   , & R & \(q_7\) \\
-      \(q_2\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Left to write a 0 at the end.
-      \(q_3\) & \bl &   0 & L & \(q_5\) \\
-      \(q_3\) &   0 &   0 & R & \(q_3\) \\
-      \(q_3\) &   1 &   1 & R & \(q_3\) \\
-      \(q_3\) &   , &   , & R & \(q_3\) \\
-      \(q_3\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Left to write a 1 at the end.
-      \(q_4\) & \bl &   1 & L & \(q_6\) \\
-      \(q_4\) &   0 &   0 & R & \(q_4\) \\
-      \(q_4\) &   1 &   1 & R & \(q_4\) \\
-      \(q_4\) &   , &   , & R & \(q_4\) \\
-      \(q_4\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Left to the X, overwrite with 0
-      \(q_5\) & \bl & \bl & L & \(q_f\) \\
-      \(q_5\) &   0 &   0 & L & \(q_5\) \\
-      \(q_5\) &   1 &   1 & L & \(q_5\) \\
-      \(q_5\) &   , &   , & L & \(q_5\) \\
-      \(q_5\) &   X &   0 & R & \(q_2\) \\
-      \midrule
-      % Left to the X, overwrite with 1
-      \(q_6\) & \bl & \bl & L & \(q_f\) \\
-      \(q_6\) &   0 &   0 & L & \(q_6\) \\
-      \(q_6\) &   1 &   1 & L & \(q_6\) \\
-      \(q_6\) &   , &   , & L & \(q_6\) \\
-      \(q_6\) &   X &   1 & R & \(q_2\) \\
-      \midrule
-      % Left to start, prepend 1.
-      \(q_7\) & \bl &   1 & L & \(q_8\) \\
-      \(q_7\) &   0 &   0 & L & \(q_7\) \\
-      \(q_7\) &   1 &   1 & L & \(q_7\) \\
-      \(q_7\) &   , &   , & L & \(q_7\) \\
-      \(q_7\) &   X &   X & L & \(q_7\) \\
-      \midrule
-      % Back to start, accept.
-      \(q_8\) & \bl & \bl & R & \(q_a\) \\
-      \(q_8\) &   0 &   0 & R & \(q_f\) \\
-      \(q_8\) &   1 &   1 & R & \(q_f\) \\
-      \(q_8\) &   , &   , & R & \(q_f\) \\
-      \(q_8\) &   X &   X & R & \(q_f\) \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-    
+  \vspace{10mm}
+
+  \begin{tabular}{@{}x{12mm}x{12mm}x{12mm}x{12mm}x{12mm}}
+    \toprule
+    State & Input & Write & Move & Next \\
+    \midrule
+    % Right to Write a comma at end on input.
+    \(q_0\) & \bl &   , & L & \(q_1\) \\
+    \(q_0\) &   0 &   0 & R & \(q_0\) \\
+    \(q_0\) &   1 &   1 & R & \(q_0\) \\
+    \(q_0\) &   , &   , & R & \(q_f\) \\
+    \(q_0\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Left to start.
+    \(q_1\) & \bl & \bl & R & \(q_2\) \\
+    \(q_1\) &   0 &   0 & L & \(q_1\) \\
+    \(q_1\) &   1 &   1 & L & \(q_1\) \\
+    \(q_1\) &   , &   , & R & \(q_f\) \\
+    \(q_1\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Overwrite first symbol with X.
+    \(q_2\) & \bl & \bl & R & \(q_f\) \\
+    \(q_2\) &   0 &   X & R & \(q_3\) \\
+    \(q_2\) &   1 &   X & R & \(q_4\) \\
+    \(q_2\) &   , &   , & R & \(q_7\) \\
+    \(q_2\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Left to write a 0 at the end.
+    \(q_3\) & \bl &   0 & L & \(q_5\) \\
+    \(q_3\) &   0 &   0 & R & \(q_3\) \\
+    \(q_3\) &   1 &   1 & R & \(q_3\) \\
+    \(q_3\) &   , &   , & R & \(q_3\) \\
+    \(q_3\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Left to write a 1 at the end.
+    \(q_4\) & \bl &   1 & L & \(q_6\) \\
+    \(q_4\) &   0 &   0 & R & \(q_4\) \\
+    \(q_4\) &   1 &   1 & R & \(q_4\) \\
+    \(q_4\) &   , &   , & R & \(q_4\) \\
+    \(q_4\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Left to the X, overwrite with 0
+    \(q_5\) & \bl & \bl & L & \(q_f\) \\
+    \(q_5\) &   0 &   0 & L & \(q_5\) \\
+    \(q_5\) &   1 &   1 & L & \(q_5\) \\
+    \(q_5\) &   , &   , & L & \(q_5\) \\
+    \(q_5\) &   X &   0 & R & \(q_2\) \\
+    \midrule
+    % Left to the X, overwrite with 1
+    \(q_6\) & \bl & \bl & L & \(q_f\) \\
+    \(q_6\) &   0 &   0 & L & \(q_6\) \\
+    \(q_6\) &   1 &   1 & L & \(q_6\) \\
+    \(q_6\) &   , &   , & L & \(q_6\) \\
+    \(q_6\) &   X &   1 & R & \(q_2\) \\
+    \midrule
+    % Left to start, prepend 1.
+    \(q_7\) & \bl &   1 & L & \(q_8\) \\
+    \(q_7\) &   0 &   0 & L & \(q_7\) \\
+    \(q_7\) &   1 &   1 & L & \(q_7\) \\
+    \(q_7\) &   , &   , & L & \(q_7\) \\
+    \(q_7\) &   X &   X & L & \(q_7\) \\
+    \midrule
+    % Back to start, accept.
+    \(q_8\) & \bl & \bl & R & \(q_a\) \\
+    \(q_8\) &   0 &   0 & R & \(q_f\) \\
+    \(q_8\) &   1 &   1 & R & \(q_f\) \\
+    \(q_8\) &   , &   , & R & \(q_f\) \\
+    \(q_8\) &   X &   X & R & \(q_f\) \\
+    \bottomrule
+  \end{tabular}
+
+  
 \section*{Add}
-  \begin{tabular}{rl}
-    \textbf{State} & \textbf{Description} \\
+  \begin{tabular}{@{}rl}
+    State & Description \\
     \midrule
     \( q_0 \) & Right to comma. \\
     \( q_1 \) & Decrease by 1, go to final states if no 1. \\
@@ -115,171 +114,177 @@
     \( q_5 \) & Left to start. \\
   \end{tabular}
 
-  \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
-      \toprule
-      State & Input & Write & Move & Next \\
-      \midrule
-      % Right to comma/X.
-      \(q_0\) & \bl & \bl & L & \(q_f\) \\
-      \(q_0\) &   0 &   0 & R & \(q_0\) \\
-      \(q_0\) &   1 &   1 & R & \(q_0\) \\
-      \(q_0\) &   , &   , & R & \(q_1\) \\
-      \(q_0\) &   X &   X & R & \(q_1\) \\
-      \midrule
-      % Decrease by 1, go to final states if no 1.
-      \(q_1\) & \bl & \bl & L & \(q_4\) \\
-      \(q_1\) &   0 &   1 & R & \(q_1\) \\
-      \(q_1\) &   1 &   0 & L & \(q_2\) \\
-      \(q_1\) &   , &   , & L & \(q_f\) \\
-      \(q_1\) &   X &   X & L & \(q_f\) \\
-      % Left to start.
-      \(q_2\) & \bl & \bl & R & \(q_3\) \\
-      \(q_2\) &   0 &   0 & L & \(q_2\) \\
-      \(q_2\) &   1 &   1 & L & \(q_2\) \\
-      \(q_2\) &   , &   , & L & \(q_2\) \\
-      \(q_2\) &   X &   X & L & \(q_2\) \\
-      \midrule
-      % Increase by 1 - use X in place of comma if overflow.
-      \(q_3\) & \bl & \bl & R & \(q_f\) \\
-      \(q_3\) &   0 &   1 & R & \(q_0\) \\
-      \(q_3\) &   1 &   0 & R & \(q_2\) \\
-      \(q_3\) &   , &   X & L & \(q_0\) \\
-      \(q_3\) &   X &   X & L & \(q_f\) \\
-      \midrule
-      % Delete to and including comma/X - replace X with 1.
-      \(q_4\) & \bl & \bl & L & \(q_f\) \\
-      \(q_4\) &   0 & \bl & L & \(q_4\) \\
-      \(q_4\) &   1 &   1 & L & \(q_f\) \\
-      \(q_4\) &   , & \bl & L & \(q_5\) \\
-      \(q_4\) &   X &   1 & L & \(q_5\) \\
-      \midrule
-      % Left to start.
-      \(q_5\) & \bl & \bl & R & \(q_a\) \\
-      \(q_5\) &   0 &   0 & L & \(q_5\) \\
-      \(q_5\) &   1 &   1 & L & \(q_5\) \\
-      \(q_5\) &   , &   , & L & \(q_f\) \\
-      \(q_5\) &   X &   X & L & \(q_f\) \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  \vspace{10mm}
 
-  \section*{Divide by two}
+  \begin{tabular}{@{}x{12mm}x{12mm}x{12mm}x{12mm}x{12mm}}
+    \toprule
+    State & Input & Write & Move & Next \\
+    \midrule
+    % Right to comma/X.
+    \(q_0\) & \bl & \bl & L & \(q_f\) \\
+    \(q_0\) &   0 &   0 & R & \(q_0\) \\
+    \(q_0\) &   1 &   1 & R & \(q_0\) \\
+    \(q_0\) &   , &   , & R & \(q_1\) \\
+    \(q_0\) &   X &   X & R & \(q_1\) \\
+    \midrule
+    % Decrease by 1, go to final states if no 1.
+    \(q_1\) & \bl & \bl & L & \(q_4\) \\
+    \(q_1\) &   0 &   1 & R & \(q_1\) \\
+    \(q_1\) &   1 &   0 & L & \(q_2\) \\
+    \(q_1\) &   , &   , & L & \(q_f\) \\
+    \(q_1\) &   X &   X & L & \(q_f\) \\
+    % Left to start.
+    \(q_2\) & \bl & \bl & R & \(q_3\) \\
+    \(q_2\) &   0 &   0 & L & \(q_2\) \\
+    \(q_2\) &   1 &   1 & L & \(q_2\) \\
+    \(q_2\) &   , &   , & L & \(q_2\) \\
+    \(q_2\) &   X &   X & L & \(q_2\) \\
+    \midrule
+    % Increase by 1 - use X in place of comma if overflow.
+    \(q_3\) & \bl & \bl & R & \(q_f\) \\
+    \(q_3\) &   0 &   1 & R & \(q_0\) \\
+    \(q_3\) &   1 &   0 & R & \(q_2\) \\
+    \(q_3\) &   , &   X & L & \(q_0\) \\
+    \(q_3\) &   X &   X & L & \(q_f\) \\
+    \midrule
+    % Delete to and including comma/X - replace X with 1.
+    \(q_4\) & \bl & \bl & L & \(q_f\) \\
+    \(q_4\) &   0 & \bl & L & \(q_4\) \\
+    \(q_4\) &   1 &   1 & L & \(q_f\) \\
+    \(q_4\) &   , & \bl & L & \(q_5\) \\
+    \(q_4\) &   X &   1 & L & \(q_5\) \\
+    \midrule
+    % Left to start.
+    \(q_5\) & \bl & \bl & R & \(q_a\) \\
+    \(q_5\) &   0 &   0 & L & \(q_5\) \\
+    \(q_5\) &   1 &   1 & L & \(q_5\) \\
+    \(q_5\) &   , &   , & L & \(q_f\) \\
+    \(q_5\) &   X &   X & L & \(q_f\) \\
+    \bottomrule
+  \end{tabular} 
+  
+
+\section*{Divide by two}
+
+  Hello
+
   \begin{tabular}{rl}
-    \textbf{State} & \textbf{Description} \\
+    State & Description \\
     \midrule
     \( q_0 \) & Delete 0, move right. \\
   \end{tabular}
 
-  \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
-      \toprule
-      State & Input & Write & Move & Next \\
-      \midrule
-      % Delete 0, move right.
-      \(q_0\) & \bl & \bl & L & \(q_f\) \\
-      \(q_0\) &   0 & \bl & R & \(q_0\) \\
-      \(q_0\) &   1 &   1 & R & \(q_f\) \\
-      \(q_0\) &   , &   , & R & \(q_f\) \\
-      \(q_0\) &   X &   X & R & \(q_f\) \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  \vspace{10mm}
+
+  \begin{tabular}{x{12mm}x{12mm}x{12mm}x{12mm}x{12mm}}
+    \toprule
+    State & Input & Write & Move & Next \\
+    \midrule
+    % Delete 0, move right.
+    \(q_0\) & \bl & \bl & L & \(q_f\) \\
+    \(q_0\) &   0 & \bl & R & \(q_0\) \\
+    \(q_0\) &   1 &   1 & R & \(q_f\) \\
+    \(q_0\) &   , &   , & R & \(q_f\) \\
+    \(q_0\) &   X &   X & R & \(q_f\) \\
+    \bottomrule
+  \end{tabular}
+  
  
-  \section*{Remove leading zeros}
+\section*{Remove leading zeros}
+  
   Fails on string meaning zero.
 
   \begin{tabular}{rl}
-    \textbf{State} & \textbf{Description} \\
+    State & Description \\
     \midrule
     \( q_0 \) & Move right to end. \\
     \( q_1 \) & Delete zeros. \\
     \( q_2 \) & Left to end. \\
   \end{tabular}
 
-  \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
-      \toprule
-      State & Input & Write & Move & Next \\
-      \midrule
-      % Right to end.
-      \(q_0\) & \bl & \bl & L & \(q_1\) \\
-      \(q_0\) &   0 &   0 & R & \(q_0\) \\
-      \(q_0\) &   1 &   1 & R & \(q_0\) \\
-      \(q_0\) &   , &   , & R & \(q_f\) \\
-      \(q_0\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Delete zeros.
-      \(q_1\) & \bl & \bl & R & \(q_f\) \\
-      \(q_1\) &   0 & \bl & L & \(q_0\) \\
-      \(q_1\) &   1 &   1 & L & \(q_2\) \\
-      \(q_1\) &   , &   , & R & \(q_f\) \\
-      \(q_1\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Left to start.
-      \(q_2\) & \bl & \bl & R & \(q_a\) \\
-      \(q_2\) &   0 &   0 & R & \(q_2\) \\
-      \(q_2\) &   1 &   1 & R & \(q_2\) \\
-      \(q_2\) &   , &   , & R & \(q_f\) \\
-      \(q_2\) &   X &   X & R & \(q_f\) \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  \vspace{10mm}
 
-  \section*{Check if 1}
+  \begin{tabular}{x{12mm}x{12mm}x{12mm}x{12mm}x{12mm}}
+    \toprule
+    State & Input & Write & Move & Next \\
+    \midrule
+    % Right to end.
+    \(q_0\) & \bl & \bl & L & \(q_1\) \\
+    \(q_0\) &   0 &   0 & R & \(q_0\) \\
+    \(q_0\) &   1 &   1 & R & \(q_0\) \\
+    \(q_0\) &   , &   , & R & \(q_f\) \\
+    \(q_0\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Delete zeros.
+    \(q_1\) & \bl & \bl & R & \(q_f\) \\
+    \(q_1\) &   0 & \bl & L & \(q_0\) \\
+    \(q_1\) &   1 &   1 & L & \(q_2\) \\
+    \(q_1\) &   , &   , & R & \(q_f\) \\
+    \(q_1\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Left to start.
+    \(q_2\) & \bl & \bl & R & \(q_a\) \\
+    \(q_2\) &   0 &   0 & R & \(q_2\) \\
+    \(q_2\) &   1 &   1 & R & \(q_2\) \\
+    \(q_2\) &   , &   , & R & \(q_f\) \\
+    \(q_2\) &   X &   X & R & \(q_f\) \\
+    \bottomrule
+  \end{tabular}
+  
+
+\section*{Check if 1}
 
   \begin{tabular}{rl}
-    \textbf{State} & \textbf{Description} \\
+    State & Description \\
     \midrule
     \( q_0 \) & Check if first bit 1. \\
     \( q_1 \) & Check if second bit blank. \\
   \end{tabular}
 
-  \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
-      \toprule
-      State & Input & Write & Move & Next \\
-      \midrule
-      % First bit 1.
-      \(q_0\) & \bl & \bl & R & \(q_f\) \\
-      \(q_0\) &   0 &   0 & R & \(q_f\) \\
-      \(q_0\) &   1 &   1 & R & \(q_1\) \\
-      \(q_0\) &   , &   , & R & \(q_f\) \\
-      \(q_0\) &   X &   X & R & \(q_f\) \\
-      \midrule
-      % Check if blank.
-      \(q_1\) & \bl & \bl & L & \(q_a\) \\
-      \(q_1\) &   0 &   0 & L & \(q_f\) \\
-      \(q_1\) &   1 &   1 & L & \(q_f\) \\
-      \(q_1\) &   , &   , & R & \(q_f\) \\
-      \(q_1\) &   X &   X & R & \(q_f\) \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  \vspace{10mm}
 
-  \section*{Check if even}
+  \begin{tabular}{x{12mm}x{12mm}x{12mm}x{12mm}x{12mm}}
+    \toprule
+    State & Input & Write & Move & Next \\
+    \midrule
+    % First bit 1.
+    \(q_0\) & \bl & \bl & R & \(q_f\) \\
+    \(q_0\) &   0 &   0 & R & \(q_f\) \\
+    \(q_0\) &   1 &   1 & R & \(q_1\) \\
+    \(q_0\) &   , &   , & R & \(q_f\) \\
+    \(q_0\) &   X &   X & R & \(q_f\) \\
+    \midrule
+    % Check if blank.
+    \(q_1\) & \bl & \bl & L & \(q_a\) \\
+    \(q_1\) &   0 &   0 & L & \(q_f\) \\
+    \(q_1\) &   1 &   1 & L & \(q_f\) \\
+    \(q_1\) &   , &   , & R & \(q_f\) \\
+    \(q_1\) &   X &   X & R & \(q_f\) \\
+    \bottomrule
+  \end{tabular}
+  
+
+\section*{Check if even}
 
   \begin{tabular}{rl}
-    \textbf{State} & \textbf{Description} \\
+    State & Description \\
     \midrule
     \( q_0 \) & Check if first bit 0. \\
   \end{tabular}
 
-  \begin{center}
-    \begin{tabular}{x{1cm}x{1cm}x{1cm}x{1cm}x{1cm}}
-      \toprule
-      State & Input & Write & Move & Next \\
-      \midrule
-      % Check 0.
-      \(q_0\) & \bl & \bl & R & \(q_f\) \\
-      \(q_0\) &   0 &   0 & R & \(q_a\) \\
-      \(q_0\) &   1 &   1 & R & \(q_f\) \\
-      \(q_0\) &   , &   , & R & \(q_f\) \\
-      \(q_0\) &   X &   X & R & \(q_f\) \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+  \vspace{20mm}
 
-
-  %\bibliography{bibliography}
+  \begin{tabular}{x{12mm}x{12mm}x{12mm}x{12mm}x{12mm}}
+    \toprule
+    State & Input & Write & Move & Next \\
+    \midrule
+    % Check 0.
+    \(q_0\) & \bl & \bl & R & \(q_f\) \\
+    \(q_0\) &   0 &   0 & R & \(q_a\) \\
+    \(q_0\) &   1 &   1 & R & \(q_f\) \\
+    \(q_0\) &   , &   , & R & \(q_f\) \\
+    \(q_0\) &   X &   X & R & \(q_f\) \\
+    \bottomrule
+  \end{tabular}
+  
 \end{document}
